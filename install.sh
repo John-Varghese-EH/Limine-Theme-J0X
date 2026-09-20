@@ -190,6 +190,7 @@ do_uninstall() {
     fi
 
     local latest_backup
+    # shellcheck disable=SC2012
     latest_backup=$(ls -t "${BACKUP_DIR}"/limine.conf.bak.* 2>/dev/null | head -n1 || true)
 
     if [[ -z "$latest_backup" ]]; then
@@ -222,10 +223,12 @@ generate_proposed_config() {
     fi
 
     # Apply custom branding
+    # shellcheck disable=SC2001
     theme_settings=$(echo "$theme_settings" | sed "s/interface_branding:.*/interface_branding: \"$CUSTOM_BRANDING\"/")
 
     # Apply custom palette
     if [[ "$CUSTOM_PALETTE" == "Kawaii" ]]; then
+        # shellcheck disable=SC2001
         theme_settings=$(echo "$theme_settings" | sed "s/term_background:.*/term_palette: 1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4\nterm_foreground: cdd6f4\nterm_background: FF1e1e2e/")
     fi
 
